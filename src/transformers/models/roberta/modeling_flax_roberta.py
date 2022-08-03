@@ -947,7 +947,7 @@ class FlaxRobertaModule(nn.Module):
 
         # make sure `position_ids` is correctly initialized when not passed
         if position_ids is None:
-            position_ids = jnp.broadcast_to(jnp.arange(jnp.atleast_2d(input_ids).shape[-1]), input_ids.shape)
+            position_ids = create_position_ids_from_input_ids(input_ids, self.config.pad_token_id)
 
         hidden_states = self.embeddings(
             input_ids, token_type_ids, position_ids, attention_mask, deterministic=deterministic
